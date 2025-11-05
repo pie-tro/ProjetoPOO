@@ -1,13 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package fatec.poo.model;
 
 /**
  *
- * @author chaewon
+ * @author pietro
  */
 public class Medico {
-    
+    private String crm;
+    private String especialidade;
+
+    public Medico(String crm, String especialidade) {
+        this.crm = crm;
+        this.especialidade = especialidade;
+    }
+
+    public String getCrm() {
+        return crm;
+    }
+
+    public String getEspecialidade() {
+        return especialidade;
+    }
 }
