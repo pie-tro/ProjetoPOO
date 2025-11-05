@@ -9,6 +9,11 @@ public class Consulta {
     private String data;
     private double valor;
 
+    public Consulta(int codigo, String data) {
+        this.codigo = codigo;
+        this.data = data;
+    }
+    
     public void setValor(double valor) {
         this.valor = valor;
     }
