@@ -1,6 +1,8 @@
 package fatec.poo.model;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 
 /**
  *
@@ -11,6 +13,7 @@ public class Paciente {
     private double altura;
     private double peso;
 
+    
     public void setAltura(double altura) {
         this.altura = altura;
     }
@@ -31,5 +34,12 @@ public class Paciente {
         return peso;
     }
     
+    public double calcIMC(){
+        double imc = peso/Math.pow(altura, 2);
+        return imc;
+    }
     
+    public int calcIdade(){
+    return Period.between(this.dataNascimento, LocalDate.now()).getYears();
+    }
 }
