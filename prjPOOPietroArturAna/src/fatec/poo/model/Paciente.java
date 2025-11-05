@@ -6,7 +6,7 @@ package fatec.poo.model;
 
 /**
  *
- * @author chaewon
+ * @author pietro
  */
 public class Paciente {
     
