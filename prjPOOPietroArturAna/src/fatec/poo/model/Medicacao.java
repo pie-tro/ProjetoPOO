@@ -9,7 +9,7 @@ public class Medicacao {
     private String dosagem;
     private int qtdeDias;
     private String descricao;
-    private Consulta consulta;
+    
 
     public Medicacao(String descricao) {
         this.descricao = descricao;
@@ -35,12 +35,6 @@ public class Medicacao {
         return qtdeDias;
     }
 
-    public Consulta getConsulta() {
-        return consulta;
-    }
 
-    public void setConsulta(Consulta consulta) {
-        this.consulta = consulta;
-    }
     
 }
