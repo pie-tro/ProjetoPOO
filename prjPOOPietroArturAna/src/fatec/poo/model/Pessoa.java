@@ -2,7 +2,7 @@ package fatec.poo.model;
 
 /**
  *
- * @author pietro
+ * @author pietro, ana, artur
  */
 public class Pessoa {
     private String cpf;
@@ -10,9 +10,9 @@ public class Pessoa {
     private String endereço;
     private String telefone;
     
-    public Pessoa(String cpf, String telefone){
+    public Pessoa(String cpf, String nome){
         this.cpf = cpf;
-        this.telefone = telefone;
+        this.nome = nome;
     }
 
     public void setEndereço(String endereço) {
