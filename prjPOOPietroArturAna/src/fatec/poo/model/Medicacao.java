@@ -8,11 +8,11 @@ public class Medicacao {
     private String nome;
     private String dosagem;
     private int qtdeDias;
-    private String descricao;
+   
     
 
-    public Medicacao(String descricao) {
-        this.descricao = descricao;
+    public Medicacao(String nome) {
+        this.nome = nome;
     }
     
     public void setDosagem(String dosagem) {
