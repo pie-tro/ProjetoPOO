@@ -15,11 +15,11 @@ public class Paciente extends Pessoa{
     private double peso;
     private ArrayList <Consulta> consultas;
 
-    public Paciente(LocalDate dataNascimento, String cpf, String nome) {
+    public Paciente(String cpf, String nome, LocalDate dataNascimento) {
         super(cpf, nome);
         this.dataNascimento = dataNascimento;
-        consultas = new ArrayList<Consulta>();
-    }
+        consultas = new ArrayList<>();
+    }    
     
     public void setAltura(double altura) {
         this.altura = altura;
@@ -29,8 +29,11 @@ public class Paciente extends Pessoa{
         this.peso = peso;
     }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
+    public String getDataNascimento() {
+       return String.format("%02d/%02d/%04d",
+            dataNascimento.getDayOfMonth(),
+            dataNascimento.getMonthValue(),
+            dataNascimento.getYear());
     }
 
     public double getAltura() {
@@ -52,7 +55,7 @@ public class Paciente extends Pessoa{
     
     public void addConsulta(Consulta c){
         consultas.add(c);
-        c.setPaciente(this);
+        
     }
    
 }
