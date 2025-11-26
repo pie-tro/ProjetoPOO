@@ -333,12 +333,10 @@ public class GuiMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-       
-    prepCon = new PreparaConexao("","");
-    prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-    prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\tigri\\OneDrive\\Documentos\\Fatec\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
+        prepCon = new PreparaConexao("","");
+        prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\pietr\\OneDrive\\Documents\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
     
-   
     daoMedico = new DaoMedico(prepCon.abrirConexao());
 
     }//GEN-LAST:event_formWindowOpened

@@ -22,7 +22,7 @@ public class DaoConsulta {
 
     public void inserir(Consulta consulta, Paciente paciente) { 
         PreparedStatement ps = null;
-        String sql = "INSERT INTO tbConsulta (Codigo, Data, Valor, MedicoCPF, PacienteCPF) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tbConsulta (Codigo, Data, Valor, CPF_Medico, CPF_Paciente) VALUES (?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, consulta.getCodigo());
