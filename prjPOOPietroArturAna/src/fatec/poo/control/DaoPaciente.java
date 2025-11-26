@@ -20,6 +20,8 @@ public class DaoPaciente {
          this.conn = conn;
     }
     
+    
+    //arrumar
     public void inserir(Paciente paciente) {
         PreparedStatement ps = null;
         String sql = "INSERT INTO tbPaciente (CPF, Nome, "
