@@ -49,6 +49,7 @@ public class GuiPaciente extends javax.swing.JFrame {
         btnSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Paciente");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -263,7 +264,12 @@ public class GuiPaciente extends javax.swing.JFrame {
         jFormattedTxtData.setText(paciente.getDataNascimento());
         txtAltura.setText(String.valueOf(paciente.getAltura()));
         txtPeso.setText(String.valueOf(paciente.getPeso()));
-        
+        txtNome.setEnabled(true);
+        txtEndereco.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        jFormattedTxtData.setEnabled(true);
+        txtAltura.setEnabled(true);
+        txtPeso.setEnabled(true);
         
         
         btnAlterar.setEnabled(true);
@@ -305,7 +311,35 @@ public class GuiPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-       
+       if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
+            paciente.setNome(txtNome.getText());
+            paciente.setEndereço(txtEndereco.getText());
+            paciente.setTelefone(txtTelefone.getText());
+            paciente.setAltura(Double.parseDouble(txtAltura.getText()));
+            paciente.setPeso(Double.parseDouble(txtPeso.getText()));
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate dataNova = LocalDate.parse(jFormattedTxtData.getText(), formato);
+            paciente.setDataNascimento(dataNova);
+            
+            daoPaciente.alterar(paciente);
+        }
+       jFormattedTxtCpf.setText(null);
+        txtNome.setText(null);
+        txtNome.setEnabled(false);
+        txtEndereco.setText(null);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setText(null);
+        txtTelefone.setEnabled(false);
+        jFormattedTxtData.setText(null);
+        jFormattedTxtData.setEnabled(false);
+        txtAltura.setText(null);
+        txtAltura.setEnabled(false);
+        txtPeso.setText(null);
+        txtPeso.setEnabled(false);
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -318,8 +352,17 @@ public class GuiPaciente extends javax.swing.JFrame {
          jFormattedTxtData.setText("");
          txtAltura.setText("");
          txtPeso.setText("");
-           
        }
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        jFormattedTxtData.setEnabled(false);
+        txtAltura.setEnabled(false);
+        txtPeso.setEnabled(false);
+        btnConsultar.setEnabled(true);
+        btnInserir.setEnabled(false);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed

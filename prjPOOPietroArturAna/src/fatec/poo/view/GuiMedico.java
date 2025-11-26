@@ -267,6 +267,7 @@ public class GuiMedico extends javax.swing.JFrame {
             txtTelefone.setEnabled(false);
             txtCrm.setEnabled(false);
             cbxEspecialidade.setEnabled(false);
+            btnConsultar.setEnabled(true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -318,6 +319,11 @@ public class GuiMedico extends javax.swing.JFrame {
             txtEndereco.setText("");
             txtTelefone.setText("");
             txtCrm.setText("");
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCrm.setEnabled(false);
+            cbxEspecialidade.setEnabled(false);
             cbxEspecialidade.setSelectedIndex(0);
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);

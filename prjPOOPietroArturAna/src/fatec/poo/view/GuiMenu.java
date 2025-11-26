@@ -38,6 +38,7 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuItemPreescreverMedicação = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Clínica");
 
         jMenuCadastro.setText("Cadastro");
 
