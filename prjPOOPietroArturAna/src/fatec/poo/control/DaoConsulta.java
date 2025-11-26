@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 /**
  *
@@ -21,7 +20,7 @@ public class DaoConsulta {
         this.conn = conn;
     }
 
-    public void inserir(Consulta consulta) {
+    public void inserir(Consulta consulta, Paciente paciente) { 
         PreparedStatement ps = null;
         String sql = "INSERT INTO tbConsulta (Codigo, Data, Valor, MedicoCPF, PacienteCPF) VALUES (?, ?, ?, ?, ?)";
         try {
@@ -30,7 +29,7 @@ public class DaoConsulta {
             ps.setString(2, consulta.getData());
             ps.setDouble(3, consulta.getValor());
             ps.setString(4, consulta.getMedico().getCpf()); 
-            ps.setString(5, consulta.getPaciente().getCpf());
+            ps.setString(5, paciente.getCpf());
             
             ps.execute(); 
         } catch (SQLException ex) {
@@ -46,7 +45,6 @@ public class DaoConsulta {
             ps.setString(1, consulta.getData());
             ps.setDouble(2, consulta.getValor());
             ps.setInt(3, consulta.getCodigo());
-            
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -64,12 +62,9 @@ public class DaoConsulta {
             if (rs.next()) {
                 consulta = new Consulta(rs.getInt("Codigo"), rs.getString("Data"));
                 consulta.setValor(rs.getDouble("Valor"));
-               
-                Medico medico = new Medico(rs.getString("MedicoCPF"), null, null, null); 
-                Paciente paciente = new Paciente(rs.getString("PacienteCPF"), null, LocalDate.of(1, 1, 1)); 
                 
-                consulta.setMedico(medico);
-                consulta.setPaciente(paciente);
+                Medico medico = new Medico(rs.getString("MedicoCPF"), null, null, null); 
+                medico.addConsulta(consulta);
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -82,7 +77,6 @@ public class DaoConsulta {
         try {
             ps = conn.prepareStatement("DELETE FROM tbConsulta WHERE Codigo = ?");
             ps.setInt(1, consulta.getCodigo());
-            
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
