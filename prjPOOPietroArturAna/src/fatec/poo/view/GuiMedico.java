@@ -163,7 +163,7 @@ public class GuiMedico extends javax.swing.JFrame {
                                     .addComponent(txtCrm))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel6)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(38, 38, 38)
                         .addComponent(cbxEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -232,6 +232,11 @@ public class GuiMedico extends javax.swing.JFrame {
         txtCrm.setText(null);
         cbxEspecialidade.setSelectedIndex(0);
         
+        txtNome.setEnabled(false);
+        txtEndereco.setEnabled(false);
+        txtTelefone.setEnabled(false);
+        txtCrm.setEnabled(false);
+        cbxEspecialidade.setEnabled(false);
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
@@ -239,10 +244,29 @@ public class GuiMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        String nomeEspecialidade = cbxEspecialidade.getSelectedItem().toString();
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?")== 0){
+            medico.setNome(txtNome.getText());
+            medico.setEndereço(txtEndereco.getText());
+            medico.setTelefone(txtTelefone.getText());
+            medico.setCrm(txtCrm.getText());
+            medico.setEspecialidade(nomeEspecialidade);
             
-            
+            daoMedico.alterar(medico);
         }
+         jFormattedTxtCpf.setText(null);
+            txtNome.setText(null);
+            txtEndereco.setText(null);
+            txtTelefone.setText(null);
+            txtCrm.setText(null);
+            cbxEspecialidade.setSelectedIndex(0);
+            btnAlterar.setEnabled(false);
+            btnExcluir.setEnabled(false);
+            txtNome.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtTelefone.setEnabled(false);
+            txtCrm.setEnabled(false);
+            cbxEspecialidade.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
@@ -259,7 +283,7 @@ public class GuiMedico extends javax.swing.JFrame {
          txtEndereco.setEnabled(true);
          txtTelefone.setEnabled(true);
          txtCrm.setEnabled(true);
-         
+         cbxEspecialidade.setEnabled(true);
          btnConsultar.setEnabled(false);
          btnInserir.setEnabled(true);
          btnAlterar.setEnabled(false);
@@ -273,6 +297,12 @@ public class GuiMedico extends javax.swing.JFrame {
         cbxEspecialidade.setSelectedItem(medico.getEspecialidade());
         btnAlterar.setEnabled(true);
         btnExcluir.setEnabled(true); 
+        btnConsultar.setEnabled(false);
+        txtNome.setEnabled(true);
+        txtEndereco.setEnabled(true);
+        txtTelefone.setEnabled(true);
+        txtCrm.setEnabled(true);
+        cbxEspecialidade.setEnabled(true);
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
