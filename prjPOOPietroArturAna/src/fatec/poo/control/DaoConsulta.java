@@ -29,6 +29,7 @@ public class DaoConsulta {
             ps.setInt(1, consulta.getCodigo());
             ps.setString(2, consulta.getData());
             ps.setDouble(3, consulta.getValor());
+            // OBRIGATÓRIO: Obtém os CPFs via getMedico() e getPaciente()
             ps.setString(4, consulta.getMedico().getCpf()); 
             ps.setString(5, consulta.getPaciente().getCpf());
             
