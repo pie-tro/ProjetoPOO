@@ -13,6 +13,7 @@ public class Consulta {
     private ArrayList <Exame> exames;
     private ArrayList <Medicacao> medicacoes;
     private Medico medico;
+    private Paciente paciente;
 
 
     public Consulta(int codigo, String data) {
@@ -65,6 +66,12 @@ public class Consulta {
         this.medico = medico;
     }
 
+    public Paciente getPaciente() {
+        return paciente;
+    }
 
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
     
 }
