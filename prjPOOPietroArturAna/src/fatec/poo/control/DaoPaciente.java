@@ -33,13 +33,9 @@ public class DaoPaciente {
             ps.setString(2, paciente.getNome());
             ps.setString(3, paciente.getEndereço()); 
             ps.setString(4, paciente.getTelefone());
-            
-            
             ps.setString(5, paciente.getDataNascimento()); 
-            
             ps.setDouble(6, paciente.getAltura());
             ps.setDouble(7, paciente.getPeso());
-            
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -57,10 +53,7 @@ public class DaoPaciente {
             ps.setString(1, paciente.getNome());
             ps.setString(2, paciente.getEndereço()); 
             ps.setString(3, paciente.getTelefone());
-            
-            
-            ps.setString(4, paciente.getDataNascimento());
-            
+            ps.setString(4, paciente.getDataNascimento()); 
             ps.setDouble(5, paciente.getAltura());
             ps.setDouble(6, paciente.getPeso());
             ps.setString(7, paciente.getCpf());

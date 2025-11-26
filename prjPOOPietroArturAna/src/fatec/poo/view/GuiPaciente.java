@@ -281,6 +281,8 @@ public class GuiPaciente extends javax.swing.JFrame {
         paciente.setAltura(Double.parseDouble(txtAltura.getText()));
         paciente.setPeso(Double.parseDouble(txtPeso.getText()));
         
+        daoPaciente.inserir(paciente);
+
         jFormattedTxtCpf.setText(null);
         txtNome.setText(null);
         txtNome.setEnabled(false);
