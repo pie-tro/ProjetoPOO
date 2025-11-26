@@ -256,6 +256,7 @@ public class GuiPaciente extends javax.swing.JFrame {
          btnExcluir.setEnabled(false); 
      }
       else{
+        jFormattedTxtCpf.setText(paciente.getCpf());
         txtNome.setText(paciente.getNome());
         txtEndereco.setText(paciente.getEndereço());
         txtTelefone.setText(paciente.getTelefone());
@@ -282,15 +283,23 @@ public class GuiPaciente extends javax.swing.JFrame {
         
         jFormattedTxtCpf.setText(null);
         txtNome.setText(null);
+        txtNome.setEnabled(false);
         txtEndereco.setText(null);
+        txtEndereco.setEnabled(false);
         txtTelefone.setText(null);
+        txtTelefone.setEnabled(false);
         jFormattedTxtData.setText(null);
+        jFormattedTxtData.setEnabled(false);
         txtAltura.setText(null);
+        txtAltura.setEnabled(false);
         txtPeso.setText(null);
+        txtPeso.setEnabled(false);
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
+        
+        
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
@@ -318,7 +327,7 @@ public class GuiPaciente extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 prepCon = new PreparaConexao("","");
     prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-    prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\artur\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
+    prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\tigri\\OneDrive\\Documentos\\Fatec\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
     
 
     daoPaciente = new DaoPaciente(prepCon.abrirConexao());
