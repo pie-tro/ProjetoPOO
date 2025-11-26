@@ -48,6 +48,9 @@ public class GuiMedico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -66,6 +69,7 @@ public class GuiMedico extends javax.swing.JFrame {
         jLabel6.setText("Especialidade");
 
         cbxEspecialidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cardiologia", "Endocrinologia", "Nefrologia", "Pneumatologia" }));
+        cbxEspecialidade.setEnabled(false);
 
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,11 +115,18 @@ public class GuiMedico extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        txtNome.setEnabled(false);
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
             }
         });
+
+        txtEndereco.setEnabled(false);
+
+        txtTelefone.setEnabled(false);
+
+        txtCrm.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,6 +307,11 @@ public class GuiMedico extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
+
+    
     /**
      * @param args the command line arguments
      */
