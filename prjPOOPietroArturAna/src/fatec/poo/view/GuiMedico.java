@@ -300,7 +300,7 @@ public class GuiMedico extends javax.swing.JFrame {
        
     prepCon = new PreparaConexao("","");
     prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-    prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\artur\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
+    prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\tigri\\OneDrive\\Documentos\\Fatec\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
     
    
     daoMedico = new DaoMedico(prepCon.abrirConexao());
