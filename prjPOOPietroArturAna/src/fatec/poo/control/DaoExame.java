@@ -22,7 +22,7 @@ public class DaoExame {
         PreparedStatement ps = null;
         String sql = "INSERT INTO tbExame "
                 + "(Codigo, Descricao, Data, "
-                + "Horario, Valor, ConsultaCodigo) "
+                + "Horario, Valor, Codigo_Consulta) "
                 + "VALUES (?, ?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql);
