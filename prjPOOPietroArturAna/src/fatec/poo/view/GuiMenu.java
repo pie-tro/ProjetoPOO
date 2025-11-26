@@ -50,9 +50,19 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuCadastro.add(jMenuItemCadastroMédico);
 
         jMenuItemCadastroPaciente.setText("Paciente");
+        jMenuItemCadastroPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroPacienteActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemCadastroPaciente);
 
         jMenuItemSair.setText("Sair");
+        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSairActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jMenuItemSair);
 
         jMenuBar1.add(jMenuCadastro);
@@ -89,6 +99,14 @@ public class GuiMenu extends javax.swing.JFrame {
     private void jMenuItemCadastroMédicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroMédicoActionPerformed
         new GuiMedico().setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroMédicoActionPerformed
+
+    private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void jMenuItemCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroPacienteActionPerformed
+        new GuiPaciente().setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroPacienteActionPerformed
 
     
     public static void main(String args[]) {

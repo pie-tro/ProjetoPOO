@@ -1,11 +1,11 @@
 package fatec.poo.control;
 
-import fatec.poo.model.Consulta;
-import fatec.poo.model.Medicacao;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import fatec.poo.model.Medicacao;
+import fatec.poo.model.Consulta;
 
 /**
  *
@@ -18,7 +18,7 @@ public class DaoMedicacao {
         this.conn = conn;
     }
 
-    public void inserir(Medicacao medicacao) {
+    public void inserir(Medicacao medicacao, Consulta consulta) {
         PreparedStatement ps = null;
         String sql = "INSERT INTO tbMedicacao "
                 + "(Nome, Dosagem, QtdeDias, ConsultaCodigo) "
@@ -28,7 +28,9 @@ public class DaoMedicacao {
             ps.setString(1, medicacao.getNome());
             ps.setString(2, medicacao.getDosagem());
             ps.setInt(3, medicacao.getQtdeDias());
-            ps.setInt(4, medicacao.getConsulta().getCodigo());
+            ps.setInt(4, consulta.getCodigo()); 
+            
+            consulta.addMedicacao(medicacao); 
             
             ps.execute();
         } catch (SQLException ex) {
@@ -44,7 +46,6 @@ public class DaoMedicacao {
             ps.setString(1, medicacao.getDosagem());
             ps.setInt(2, medicacao.getQtdeDias());
             ps.setString(3, medicacao.getNome());
-            
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -63,9 +64,6 @@ public class DaoMedicacao {
                 medicacao = new Medicacao(rs.getString("Nome")); 
                 medicacao.setDosagem(rs.getString("Dosagem"));
                 medicacao.setQtdeDias(rs.getInt("QtdeDias"));
-                
-                Consulta consulta = new Consulta(rs.getInt("ConsultaCodigo"), null);
-                medicacao.setConsulta(consulta);
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
@@ -78,7 +76,6 @@ public class DaoMedicacao {
         try {
             ps = conn.prepareStatement("DELETE FROM tbMedicacao WHERE Nome = ?");
             ps.setString(1, medicacao.getNome());
-            
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());

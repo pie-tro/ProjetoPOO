@@ -18,6 +18,14 @@ public class Medico extends Pessoa{
         consultas = new ArrayList<Consulta>();
     }
 
+    public void setCrm(String crm) {
+        this.crm = crm;
+    }
+
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
     public String getCrm() {
         return crm;
     }
