@@ -71,7 +71,7 @@ public class DaoExame {
                 exame.setHorario(rs.getString("Horario"));
                 exame.setValor(rs.getDouble("Valor"));
                 
-                Consulta consulta = new Consulta(rs.getInt("ConsultaCodigo"), null);
+                Consulta consulta = new Consulta(rs.getInt("Codigo_Consulta"), null);
                 exame.setConsulta(consulta);
             }
         } catch (SQLException ex) {
