@@ -63,7 +63,7 @@ public class DaoConsulta {
                 consulta = new Consulta(rs.getInt("Codigo"), rs.getString("Data"));
                 consulta.setValor(rs.getDouble("Valor"));
                 
-                Medico medico = new Medico(rs.getString("MedicoCPF"), null, null, null); 
+                Medico medico = new Medico(rs.getString("CPF_Medico"), null, null, null); 
                 medico.addConsulta(consulta);
             }
         } catch (SQLException ex) {
@@ -82,5 +82,6 @@ public class DaoConsulta {
             System.out.println(ex.toString());
         }
     }
+    
     
 }
