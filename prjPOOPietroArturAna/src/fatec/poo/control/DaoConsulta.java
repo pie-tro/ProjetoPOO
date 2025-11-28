@@ -52,7 +52,7 @@ public class DaoConsulta {
     }
 
     public Consulta consultar(int codigo) {
-        Consulta consulta = null;
+       Consulta c = null;
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("SELECT * FROM tbConsulta WHERE Codigo = ?");
@@ -60,16 +60,55 @@ public class DaoConsulta {
             ResultSet rs = ps.executeQuery();
             
             if (rs.next()) {
-                consulta = new Consulta(rs.getInt("Codigo"), rs.getString("Data"));
-                consulta.setValor(rs.getDouble("Valor"));
-                
-                Medico medico = new Medico(rs.getString("CPF_Medico"), null, null, null); 
-                medico.addConsulta(consulta);
+                c = new Consulta(codigo, rs.getString("Data"));
+                c.setValor(rs.getDouble("Valor"));
+               
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
-        return consulta;
+        return c;
+    }
+
+   
+    public Medico buscarMedicoDaConsulta(int codigo) {
+        Medico m = null;
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("SELECT CPF_Medico FROM tbConsulta WHERE Codigo = ?");
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                String cpf = rs.getString("CPF_Medico");
+                
+                DaoMedico dao = new DaoMedico(conn);
+                m = dao.consultar(cpf);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return m;
+    }
+
+    
+    public Paciente buscarPacienteDaConsulta(int codigo) {
+        Paciente p = null;
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("SELECT CPF_Paciente FROM tbConsulta WHERE Codigo = ?");
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                String cpf = rs.getString("CPF_Paciente");
+                DaoPaciente dao = new DaoPaciente(conn);
+                p = dao.consultar(cpf);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        return p;
     }
 
     public void excluir(Consulta consulta) {
