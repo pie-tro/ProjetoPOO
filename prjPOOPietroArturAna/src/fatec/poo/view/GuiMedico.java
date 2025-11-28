@@ -47,6 +47,7 @@ public class GuiMedico extends javax.swing.JFrame {
         txtCrm = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Médico");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -116,11 +117,6 @@ public class GuiMedico extends javax.swing.JFrame {
         }
 
         txtNome.setEnabled(false);
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
-            }
-        });
 
         txtEndereco.setEnabled(false);
 
@@ -307,10 +303,6 @@ public class GuiMedico extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0){
             daoMedico.excluir(medico);
@@ -335,6 +327,7 @@ public class GuiMedico extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         prepCon = new PreparaConexao("","");
         prepCon.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
+        prepCon.setConnectionString("jdbc:ucanaccess://C:\\Users\\artur\\ProjetoPOO\\prjPOOPietroArturAna\\src\\fatec\\poo\\basededados\\BDClinica.accdb");
     
     daoMedico = new DaoMedico(prepCon.abrirConexao());
 
