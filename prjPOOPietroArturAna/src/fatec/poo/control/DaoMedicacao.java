@@ -21,7 +21,7 @@ public class DaoMedicacao {
     public void inserir(Medicacao medicacao, Consulta consulta) {
         PreparedStatement ps = null;
         String sql = "INSERT INTO tbMedicacao "
-                + "(Nome, Dosagem, QtdeDias, ConsultaCodigo) "
+                + "(Nome, Dosagem, QtdeDias, Codigo_Consulta) "
                 + "VALUES (?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql);
@@ -80,5 +80,25 @@ public class DaoMedicacao {
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
+    }
+    public Consulta buscarCodigoConsulta (String nomeMedicacao){
+        Consulta consulta = null;
+        PreparedStatement ps = null;
+        String sql = "SELECT Codigo_Consulta FROM tbMedicacao WHERE Nome=?";
+        try{
+            ps = conn.prepareStatement(sql);
+            ps.setString(1,nomeMedicacao);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+               int codigo = rs.getInt("Codigo_Consulta");
+               DaoConsulta daoConsulta = new DaoConsulta(conn);
+               consulta= daoConsulta.consultar(codigo);
+            }
+        }
+        catch(SQLException ex){
+            System.out.println(ex.toString());
+        }
+        return consulta;
     }
 }
