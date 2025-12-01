@@ -62,7 +62,18 @@ public class DaoConsulta {
             if (rs.next()) {
                 c = new Consulta(codigo, rs.getString("Data"));
                 c.setValor(rs.getDouble("Valor"));
-               
+                
+                
+                String cpfMedico = rs.getString("CPF_Medico"); 
+                
+                
+                DaoMedico daoMedico = new DaoMedico(conn);
+                Medico m = daoMedico.consultar(cpfMedico);
+                
+                
+                m.addConsulta(c);
+                
+                
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
