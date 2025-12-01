@@ -87,6 +87,11 @@ public class GuiMenu extends javax.swing.JFrame {
         jMenuRegistroConsulta.add(jMenuItemMarcarExame);
 
         jMenuItemPreescreverMedicação.setText("Preescrever Medicação");
+        jMenuItemPreescreverMedicação.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPreescreverMedicaçãoActionPerformed(evt);
+            }
+        });
         jMenuRegistroConsulta.add(jMenuItemPreescreverMedicação);
 
         jMenuBar1.add(jMenuRegistroConsulta);
@@ -126,6 +131,10 @@ public class GuiMenu extends javax.swing.JFrame {
     private void jMenuItemMarcarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMarcarConsultaActionPerformed
         new GuiConsulta().setVisible(true);
     }//GEN-LAST:event_jMenuItemMarcarConsultaActionPerformed
+
+    private void jMenuItemPreescreverMedicaçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPreescreverMedicaçãoActionPerformed
+        new GuiMedicacao().setVisible(true);
+    }//GEN-LAST:event_jMenuItemPreescreverMedicaçãoActionPerformed
 
     
     public static void main(String args[]) {
