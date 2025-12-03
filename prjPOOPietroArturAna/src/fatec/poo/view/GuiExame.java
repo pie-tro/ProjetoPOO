@@ -62,7 +62,11 @@ public class GuiExame extends javax.swing.JFrame {
         lblNomeMedico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Marcar Exame");
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -111,6 +115,7 @@ public class GuiExame extends javax.swing.JFrame {
         }
         jFormattedTxtData.setEnabled(false);
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +123,7 @@ public class GuiExame extends javax.swing.JFrame {
             }
         });
 
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +132,7 @@ public class GuiExame extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +141,7 @@ public class GuiExame extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -142,6 +150,7 @@ public class GuiExame extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +159,7 @@ public class GuiExame extends javax.swing.JFrame {
         });
 
         lblNomeMedico.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        lblNomeMedico.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -168,14 +178,6 @@ public class GuiExame extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(228, 228, 228)
-                                .addComponent(btnExcluir)
-                                .addGap(41, 41, 41)
-                                .addComponent(btnSair))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                                .addComponent(txtHorario, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jFormattedTxtData, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -187,12 +189,20 @@ public class GuiExame extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblNomeMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnInserir)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtValor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                        .addComponent(txtHorario, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addGap(132, 132, 132)
+                                .addComponent(btnExcluir)
+                                .addGap(28, 28, 28)
+                                .addComponent(btnSair))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnConsultar)
-                        .addGap(59, 59, 59)
-                        .addComponent(btnInserir)
-                        .addGap(26, 26, 26)
+                        .addGap(148, 148, 148)
                         .addComponent(btnAlterar)))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -251,11 +261,7 @@ public class GuiExame extends javax.swing.JFrame {
         txtCodConsulta.requestFocus();
     } else {
        
-        Medico m = daoConsulta.buscarMedicoDaConsulta(codConsulta);
-        if (m != null) {
-            lblNomeMedico.setText(m.getNome());
-        }
-
+         lblNomeMedico.setText(consulta.getMedico().getNome());
         
         txtCodConsulta.setEnabled(false);
         btnConsultarMedico.setEnabled(false); 
@@ -277,36 +283,65 @@ public class GuiExame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        exame = null;
-        exame = daoExame.consultar(Integer.parseInt(txtCodigo.getText()));
-        if(exame == null){
-            txtCodConsulta.setEnabled(true);
-            btnConsultarMedico.setEnabled(true);
+        if (txtCodigo.getText().isEmpty()) return;
             
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
             
-        }else{
-            consulta = exame.getConsulta();
-            txtCodConsulta.setText(String.valueOf(exame.getConsulta().getCodigo()));
-            txtDescricao.setText(exame.getDescricao());
-            jFormattedTxtData.setText(exame.getData());
-            txtHorario.setText(exame.getHorario());
-            txtValor.setText(String.valueOf(exame.getValor()));
-            
-            txtDescricao.setEnabled(true);
-            jFormattedTxtData.setEnabled(true);
-            txtHorario.setEnabled(true);
-            txtValor.setEnabled(true);
-            
-            Medico m = daoConsulta.buscarMedicoDaConsulta(consulta.getCodigo());
-        if (m != null) {
-            lblNomeMedico.setText(m.getNome());
-        }
-            
-            btnAlterar.setEnabled(true);
-            btnExcluir.setEnabled(true); 
-        }
+            exame = daoExame.consultar(Integer.parseInt(txtCodigo.getText()));
+    
+            if(exame == null){
+               
+                txtCodConsulta.setEnabled(true);
+                btnConsultar.setEnabled(true);
+                txtCodConsulta.requestFocus();
+                
+                
+                lblNomeMedico.setText("");
+                txtDescricao.setText("");
+                jFormattedTxtData.setText("");
+                txtHorario.setText("");
+                txtValor.setText("");
+                
+                
+                btnConsultarMedico.setEnabled(true);
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(false); 
+                
+            } else {
+               
+                
+               
+                int idConsulta = exame.getConsulta().getCodigo();
+                consulta = daoConsulta.consultar(idConsulta);
+                
+ 
+                txtCodConsulta.setText(String.valueOf(consulta.getCodigo()));
+                txtDescricao.setText(exame.getDescricao());
+                jFormattedTxtData.setText(exame.getData());
+                txtHorario.setText(exame.getHorario());
+                txtValor.setText(String.valueOf(exame.getValor()));
+                
+               
+                if (consulta.getMedico() != null) {
+                    lblNomeMedico.setText(consulta.getMedico().getNome());
+                } else {
+                    lblNomeMedico.setText("Médico não encontrado");
+                }
+                
+                
+                txtCodigo.setEnabled(false);
+                txtCodConsulta.setEnabled(false);
+                btnConsultar.setEnabled(false);
+                
+                txtDescricao.setEnabled(true);
+                jFormattedTxtData.setEnabled(true);
+                txtHorario.setEnabled(true);
+                txtValor.setEnabled(true);
+                
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(false);
+                btnAlterar.setEnabled(true);
+                btnExcluir.setEnabled(true);
+            }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -364,6 +399,7 @@ LocalDate data = LocalDate.parse(jFormattedTxtData.getText(), formato);
              exame.setHorario(txtHorario.getText());
              exame.setValor(Double.parseDouble(txtValor.getText()));
              exame.setData(jFormattedTxtData.getText());
+             consulta.addExame(exame);
              daoExame.alterar(exame);
          }
         txtCodigo.setText("");
@@ -426,6 +462,10 @@ LocalDate data = LocalDate.parse(jFormattedTxtData.getText(), formato);
         
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+           prepCon.fecharConexao();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

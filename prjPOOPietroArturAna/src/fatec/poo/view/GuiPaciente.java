@@ -66,11 +66,6 @@ public class GuiPaciente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTxtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTxtCpfActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Nome");
 
@@ -106,6 +101,7 @@ public class GuiPaciente extends javax.swing.JFrame {
 
         txtPeso.setEnabled(false);
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +109,7 @@ public class GuiPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +118,7 @@ public class GuiPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +127,7 @@ public class GuiPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +136,7 @@ public class GuiPaciente extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,7 +189,7 @@ public class GuiPaciente extends javax.swing.JFrame {
                         .addComponent(btnExcluir)
                         .addGap(18, 18, 18)
                         .addComponent(btnSair)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +222,7 @@ public class GuiPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnInserir)
@@ -235,13 +235,13 @@ public class GuiPaciente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jFormattedTxtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTxtCpfActionPerformed
-       
-    }//GEN-LAST:event_jFormattedTxtCpfActionPerformed
-
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+    String cpfLimpo = jFormattedTxtCpf.getText().replace(".", "").replace("-", "").trim();
+     if (cpfLimpo.isEmpty()) {
+             return; 
+        }
      paciente=null;
-     paciente = daoPaciente.consultar(jFormattedTxtCpf.getText());
+     paciente = daoPaciente.consultar(cpfLimpo);
      
      if(paciente==null){
          txtNome.setEnabled(true);
@@ -257,6 +257,7 @@ public class GuiPaciente extends javax.swing.JFrame {
          btnExcluir.setEnabled(false); 
      }
       else{
+        jFormattedTxtCpf.setEnabled(false);
         jFormattedTxtCpf.setText(paciente.getCpf());
         txtNome.setText(paciente.getNome());
         txtEndereco.setText(paciente.getEndereço());
@@ -281,7 +282,13 @@ public class GuiPaciente extends javax.swing.JFrame {
      
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
        LocalDate dataNasc = LocalDate.parse(jFormattedTxtData.getText(), formato);
-        paciente = new Paciente(jFormattedTxtCpf.getText(), txtNome.getText(), dataNasc);
+       String cpfLimpo = jFormattedTxtCpf.getText().replace(".", "").replace("-", "").trim();
+       if (!fatec.poo.model.Pessoa.validarCPF(cpfLimpo)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "CPF Inválido! Verifique os dígitos.");
+            jFormattedTxtCpf.requestFocus();
+            return; 
+        }
+        paciente = new Paciente(cpfLimpo, txtNome.getText(), dataNasc);
         paciente.setEndereço(txtEndereco.getText());
         paciente.setTelefone(txtTelefone.getText());
         paciente.setAltura(Double.parseDouble(txtAltura.getText()));
@@ -290,6 +297,7 @@ public class GuiPaciente extends javax.swing.JFrame {
         daoPaciente.inserir(paciente);
 
         jFormattedTxtCpf.setText(null);
+        jFormattedTxtCpf.requestFocus();
         txtNome.setText(null);
         txtNome.setEnabled(false);
         txtEndereco.setText(null);
@@ -336,6 +344,8 @@ public class GuiPaciente extends javax.swing.JFrame {
         txtAltura.setEnabled(false);
         txtPeso.setText(null);
         txtPeso.setEnabled(false);
+        jFormattedTxtCpf.setEnabled(true);
+        jFormattedTxtCpf.requestFocus();
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
@@ -359,6 +369,8 @@ public class GuiPaciente extends javax.swing.JFrame {
         jFormattedTxtData.setEnabled(false);
         txtAltura.setEnabled(false);
         txtPeso.setEnabled(false);
+        jFormattedTxtCpf.setEnabled(true);
+    jFormattedTxtCpf.requestFocus();
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
         btnAlterar.setEnabled(false);
