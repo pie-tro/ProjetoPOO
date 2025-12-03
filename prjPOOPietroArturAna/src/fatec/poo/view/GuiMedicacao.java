@@ -232,6 +232,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
           txtCodigo.setEnabled(true);
           btnConsultarMedico.setEnabled(true);
           txtCodigo.requestFocus();
+          btnConsultar.setEnabled(false);
       }
       else{
           consulta=daoMedicacao.buscarCodigoConsulta(nomeMedicacao);
