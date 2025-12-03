@@ -82,25 +82,7 @@ public class DaoConsulta {
     }
 
    
-    public Medico buscarMedicoDaConsulta(int codigo) {
-        Medico m = null;
-        PreparedStatement ps = null;
-        try {
-            ps = conn.prepareStatement("SELECT CPF_Medico FROM tbConsulta WHERE Codigo = ?");
-            ps.setInt(1, codigo);
-            ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                String cpf = rs.getString("CPF_Medico");
-                
-                DaoMedico dao = new DaoMedico(conn);
-                m = dao.consultar(cpf);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.toString());
-        }
-        return m;
-    }
+ 
 
     
     public Paciente buscarPacienteDaConsulta(int codigo) {

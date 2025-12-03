@@ -72,6 +72,7 @@ public class GuiMedico extends javax.swing.JFrame {
         cbxEspecialidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cardiologia", "Endocrinologia", "Nefrologia", "Pneumatologia" }));
         cbxEspecialidade.setEnabled(false);
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,6 +80,7 @@ public class GuiMedico extends javax.swing.JFrame {
             }
         });
 
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +89,7 @@ public class GuiMedico extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +98,7 @@ public class GuiMedico extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +107,7 @@ public class GuiMedico extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,7 +178,7 @@ public class GuiMedico extends javax.swing.JFrame {
                         .addComponent(btnExcluir)
                         .addGap(18, 18, 18)
                         .addComponent(btnSair)
-                        .addContainerGap(57, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,11 +195,11 @@ public class GuiMedico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 43, Short.MAX_VALUE)
+                .addGap(18, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtCrm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,11 +222,18 @@ public class GuiMedico extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
        String nomeEspecialidade = cbxEspecialidade.getSelectedItem().toString();
-        medico = new Medico(jFormattedTxtCpf.getText(),txtNome.getText(),txtCrm.getText(),nomeEspecialidade);
+       String cpfLimpo = jFormattedTxtCpf.getText().replace(".", "").replace("-", "").trim();
+       if (!fatec.poo.model.Pessoa.validarCPF(cpfLimpo)) {
+            javax.swing.JOptionPane.showMessageDialog(this, "CPF Inválido! Verifique os dígitos.");
+            jFormattedTxtCpf.requestFocus();
+            return; 
+        }
+        medico = new Medico(cpfLimpo,txtNome.getText(),txtCrm.getText(),nomeEspecialidade);
         medico.setEndereço(txtEndereco.getText());
         medico.setTelefone(txtTelefone.getText());
         daoMedico.inserir(medico);
         jFormattedTxtCpf.setText(null);
+        jFormattedTxtCpf.requestFocus();
         txtNome.setText(null);
         txtEndereco.setText(null);
         txtTelefone.setText(null);
@@ -256,6 +268,8 @@ public class GuiMedico extends javax.swing.JFrame {
             txtTelefone.setText(null);
             txtCrm.setText(null);
             cbxEspecialidade.setSelectedIndex(0);
+            jFormattedTxtCpf.setEnabled(true); 
+            jFormattedTxtCpf.requestFocus();
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
             txtNome.setEnabled(false);
@@ -271,8 +285,12 @@ public class GuiMedico extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        String cpfLimpo = jFormattedTxtCpf.getText().replace(".", "").replace("-", "").trim();
+        if (cpfLimpo.isEmpty()) {
+             return; 
+        }
         medico = null;
-        medico = daoMedico.consultar(jFormattedTxtCpf.getText());
+        medico = daoMedico.consultar(cpfLimpo);
         
         if(medico==null){
          
@@ -287,6 +305,7 @@ public class GuiMedico extends javax.swing.JFrame {
          btnExcluir.setEnabled(false);  
         }
         else{
+        jFormattedTxtCpf.setEnabled(false);
         txtNome.setText(medico.getNome());
         txtEndereco.setText(medico.getEndereço());
         txtTelefone.setText(medico.getTelefone());
@@ -317,6 +336,8 @@ public class GuiMedico extends javax.swing.JFrame {
             txtCrm.setEnabled(false);
             cbxEspecialidade.setEnabled(false);
             cbxEspecialidade.setSelectedIndex(0);
+            jFormattedTxtCpf.setEnabled(true); 
+        jFormattedTxtCpf.requestFocus();
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(false);

@@ -52,6 +52,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
         btnInserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Prescrever Medicação");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -86,6 +87,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
 
         txtQuantidadeDias.setEnabled(false);
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +95,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +104,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -109,6 +113,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,6 +121,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
             }
         });
 
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -192,7 +198,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtQuantidadeDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConsultar)
                     .addComponent(btnAlterar)
@@ -237,6 +243,7 @@ public class GuiMedicacao extends javax.swing.JFrame {
               txtQuantidadeDias.setText(String.valueOf(medicacao.getQtdeDias()));
               txtDosagem.setEnabled(true);
               txtQuantidadeDias.setEnabled(true);
+              btnConsultar.setEnabled(false);
               btnAlterar.setEnabled(true);
               btnExcluir.setEnabled(true);
           }
@@ -248,7 +255,9 @@ public class GuiMedicacao extends javax.swing.JFrame {
         if (JOptionPane.showConfirmDialog(null,"Confirmar Alteração?")==0){
             medicacao.setDosagem(txtDosagem.getText());
             medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText()));
+             consulta.addMedicacao(medicacao);
             daoMedicacao.alterar(medicacao);
+            
         }
         txtNome.setText(null);
         txtCodigo.setText(null);
@@ -291,8 +300,8 @@ public class GuiMedicacao extends javax.swing.JFrame {
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
        medicacao = new Medicacao(txtNome.getText());
        medicacao.setDosagem(txtDosagem.getText());
-       medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText()));
-       daoMedicacao.inserir(medicacao, consulta);
+       medicacao.setQtdeDias(Integer.parseInt(txtQuantidadeDias.getText().trim()));//estamos usando o trim aqui para garantir que se o usuario 
+       daoMedicacao.inserir(medicacao, consulta);                                  //dar um espaço ele inserir da mesma forma
        consulta.addMedicacao(medicacao);
        
        txtNome.setText("");
@@ -310,17 +319,15 @@ public class GuiMedicacao extends javax.swing.JFrame {
     private void btnConsultarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarMedicoActionPerformed
         int codConsulta = Integer.parseInt(txtCodigo.getText());
         consulta = daoConsulta.consultar(codConsulta);
+        
         if(consulta==null){
             javax.swing.JOptionPane.showMessageDialog(this, "Consulta não está presente no banco de dados");
             txtCodigo.requestFocus();
         }
         else{
-            Medico m = daoConsulta.buscarMedicoDaConsulta(codConsulta);
-            if(m != null){
-            lblNomeMedico.setText(m.getNome());
-            btnConsultar.setEnabled(false);
+            lblNomeMedico.setText(consulta.getMedico().getNome());
             
-        }
+        
             txtCodigo.setEnabled(false);
             btnConsultarMedico.setEnabled(false);
             txtDosagem.setEnabled(true);

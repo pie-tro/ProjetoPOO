@@ -97,6 +97,7 @@ public class GuiConsulta extends javax.swing.JFrame {
 
         txtValor.setEnabled(false);
 
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +105,7 @@ public class GuiConsulta extends javax.swing.JFrame {
             }
         });
 
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/save.png"))); // NOI18N
         btnInserir.setText("Inserir");
         btnInserir.setEnabled(false);
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +114,7 @@ public class GuiConsulta extends javax.swing.JFrame {
             }
         });
 
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Alterar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
         btnAlterar.setEnabled(false);
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +123,7 @@ public class GuiConsulta extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/Eraser.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +132,7 @@ public class GuiConsulta extends javax.swing.JFrame {
             }
         });
 
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/exit.png"))); // NOI18N
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +177,7 @@ public class GuiConsulta extends javax.swing.JFrame {
                         .addComponent(btnAlterar)
                         .addGap(18, 18, 18)
                         .addComponent(btnExcluir)
-                        .addGap(0, 9, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -204,7 +209,9 @@ public class GuiConsulta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(174, 174, 174)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnSair)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(btnSair))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,7 +405,7 @@ public class GuiConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarMedicoActionPerformed
-        String cpf = txtformCpfMedico.getText();
+        String cpf = txtformCpfMedico.getText().replace(".", "").replace("-", "").trim();
 
         if (cpf.isEmpty()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Digite o CPF do Médico!");
@@ -425,7 +432,7 @@ public class GuiConsulta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarMedicoActionPerformed
 
     private void btnConsultarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPacienteActionPerformed
-         String cpf = txtformCpfPaciente.getText();
+         String cpf = txtformCpfPaciente.getText().replace(".", "").replace("-", "").trim();
 
         paciente = daoPaciente.consultar(cpf);
 
